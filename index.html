@@ -1,0 +1,156 @@
+<html>
+<head>
+<link rel="stylesheet" href="./semantic.min.css">
+<link rel="stylesheet" href="./components/menu.min.css">
+<link rel="stylesheet" href="./components/dropdown.min.css">
+<style>
+* { border-color:#7ec0ee !important; }	
+#main > div.left-container > div > div > table > tr:hover {
+  cursor:pointer;	
+}	
+	.etherscan { cursor:pointer }	
+</style>	
+</head>
+<body>
+<div class="ui basic modal one">
+  <div class="ui icon header">
+    <i class="paper plane icon"></i>
+	  This purchase will cost you&nbsp;<span id="ethAmount"></span>&nbsp;ETH
+	  <br><span id="buyPrice"></span>&nbsp;ETH</br> 
+  </div>
+  <div class="content">
+    <center>Would you like to submit the transaction?</center>
+  </div>
+  <div class="actions">
+    <div id="cancelTx" class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div id="sendBuy" class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>
+	
+<div class="ui basic modal two">
+  <div class="ui icon header">
+    <i class="paper plane icon"></i>
+	  For this sale you will receive&nbsp;<span id="tokenAmount"></span>&nbsp;ETH
+	  <br><span id="sellPrice"></span>&nbsp;ETH</br> 
+	  <br>After you confirm this sale, you will need to confirm TWO transactions with Metamask. The first transaction is a token transfer approval. As soon as this transaction is confirmed, a second Metamask screen will appear to ask your confirmation of the transaction that actually sells your tokens. You will need to confirm this one as well.</br>
+  </div>
+  <div class="content">
+    <center>Would you like to submit the transaction?</center>
+  </div>
+  <div class="actions">
+    <div id="cancelTx" class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div id="sendSell" class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>	
+		  
+<div class="ui one item massive menu" style="margin-top:0;border-top:none;border-left:none;border-right:none;">
+    <div class="item">	
+      <h1 style="margin:auto;">token-liquidity.github.io</h1>
+      <div class="ui negative small message header" style="float:right;margin-right:1%;" id="metamask">
+        Metamask Undetected
+      </div> 	    	         
+    </div> 	    	    	    
+</div> 
+<div style="width:98%;margin-right:1%;margin-left:1%;margin-bottom:1%;">	
+  <div class="ui three item small menu">
+    <div class="item">	
+      <div class="ui search">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search Token...">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"> 
+        </div>
+      </div>
+    </div>
+    <div class="item">
+	    Your Address:&nbsp;<span class="etherscan" id="userAddress"></span>
+    </div>
+    <div class="item">
+	    Your Balance:&nbsp;<span id="userBalance"></span>&nbsp;<span id="userTokenBalance"></span>
+    </div>	      
+  </div>	
+</div>	
+<div id="main">	
+  <div class="left-container" style="width:12%;float:left;margin-left:1%;margin-right:1%">  		
+    <div>
+      <div class="ui segment">  
+        <table class="ui fixed single line celled table tablesorter">
+          <thead>
+            <tr><th>Symbol</th>
+              <th>24Hr Volume</th>
+            </tr>
+          </thead>
+        </table> 	
+      </div>  	    
+    </div>	    
+  </div>		
+  <div class="right-container" style="width:85%;float:right;margin-right:1%;">  			  
+    <div>	  
+      <div class="ui segment">
+	      <span id="contractCreationDateLiquidity Provid"></span>      
+       <table class="ui fixed single line celled table tablesorter">
+         <thead>
+           <tr><th>Liquidity Providers</th>
+             <th>Contract</th>
+             <th>24Hr Volume</th>
+             <th>Balances</th>
+             <th>Commission</th>      
+  	     <th>Amount&nbsp;<span id="amountTokenName"></span></th>      
+             <th>Trade</th>      
+           </tr>
+         </thead>
+       </table>
+      </div>
+    </div>		    
+  </div>	
+</div>		
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="https://cdn.rawgit.com/MikeMcl/bignumber.js/7269d028/bignumber.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/christianbach/tablesorter/07e09182/jquery.tablesorter.min.js"></script> 	
+<script src="https://cdn.rawgit.com/caolan/async/3741f80b/dist/async.min.js"></script>  
+<script src="js/script.js"></script>  
+<script src="./semantic.min.js"></script>
+<script src="./components/dropdown.min.js"></script>
+<script>
+$('.ui.dropdown')
+  .dropdown();
+</script>
+<script>
+		setInterval(function() {
+			web3.eth.getAccounts(function(err, accounts) {
+				if (err) return
+				let element = $("#metamask");
+				if (accounts[0]) {
+ 				  let userAddress = accounts[0];					
+  				  localStorage.setItem("userAddress", userAddress);					
+ 	  		          web3.eth.getBalance(userAddress, function(err, balance) {
+					let userBalance = (parseInt(balance)/1e18).toFixed(2);  
+					element.removeClass("negative");
+					element.addClass("success");
+					element.text("Metamask Unlocked");
+					$('#userAddress').text(userAddress);  
+					$('#userBalance').text(userBalance + " ETH");
+				  });	  
+				} else {
+					element.removeClass("success");
+					element.addClass("negative");
+					element.text("Metamask Locked");
+				}
+			})
+		}, 5000) 
+</script> 
+</body>
+</html>
