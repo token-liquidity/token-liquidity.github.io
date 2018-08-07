@@ -409,8 +409,8 @@ async function loadSearch() {
   let tokenObject = {};
   for(let i in internalTxs) {
     let contractAddress = internalTxs[i].contractAddress;
-    let ethBalance = parseInt(await getETHBalance(contractAddress))/1e18;
     if((contractAddress.slice(0,2) === "0x") && ethBalance > 0) {	  
+      let ethBalance = parseInt(await getETHBalance(contractAddress))/1e18;
       let tradedTokenAddress = await getTradedToken(contractAddress);
       let name = (await getTokenName(tradedTokenAddress)).toUpperCase();
       localStorage.setItem(name,tradedTokenAddress);	  
