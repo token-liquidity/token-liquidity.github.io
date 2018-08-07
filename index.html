@@ -8,7 +8,11 @@
 #main > div.left-container > div > div > table > tr:hover {
   cursor:pointer;	
 }	
-	.etherscan { cursor:pointer }	
+.etherscan { cursor:pointer }	
+#footerModal > br {
+  font-weight:bold;	
+  margin-bottom:5%;	
+}	
 </style>	
 </head>
 <body>
@@ -117,7 +121,7 @@
     </div>		    
   </div>	
 </div>	
-<div class="ui tiny modal">
+<div class="ui small modal" id="footerModal">
 <br>1) Make sure you have equal amounts (in value) of tokens and ETH in your Metamask address
 <br>2) Sign into your Metamask and go to: https://etherscan.io/address/token-liquidity.eth
 <br>3) Go to the “Write Contract” tab and click on “Connect with Metamask” 
@@ -142,7 +146,7 @@ How to launch your own Liquidity Contract (WARNING: this is all very experimenta
 <script src="./components/dropdown.min.js"></script>
 <script>
 $('#footer').on('click', function() {
-  $('.tiny.modal').modal('show');	
+  $('.small.modal').modal('show');	
 });	
 </script>	
 <script>
