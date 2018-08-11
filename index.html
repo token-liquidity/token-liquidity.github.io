@@ -140,10 +140,10 @@
 </div>
 <footer style="bottom:20px;position:absolute;width:100%;">
   <div id="footer" style="float:left;width:49%;margin-left:1%;">	
-  How to launch your own Liquidity Contract (WARNING: this is all very experimental stuff – be prepared to lose your tokens if a vulnerability is found in the code)	
+  Click here to see how to launch 
   </div>	
   <div style="float:right;width:49%;text-align:right;margin-right:1%;color:black;">
-  <a href="https://discord.gg/xfwE7f9">If you have questions, join our Discord: https://discord.gg/xfwE7f9</a>	
+  <a id="discord">If you have questions, join our Discord: https://discord.gg/xfwE7f9</a>	
   </div>	
 </footer>	
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
@@ -153,6 +153,11 @@
 <script src="js/script.js"></script>  
 <script src="./semantic.min.js"></script>
 <script src="./components/dropdown.min.js"></script>
+<script>
+$('#discord').on('click', function(){
+  window.open("https://discord.gg/xfwE7f9","_blank");      	
+});
+</script>
 <script>
 $('#footer').on('click', function() {
   $('.small.modal').modal('show');	
