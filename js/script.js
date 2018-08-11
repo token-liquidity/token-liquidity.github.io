@@ -362,6 +362,7 @@ async function loadContractInformation(arr) {
     let deactivated = await isDeactivated(contractAddress);
     let tradedTokenDecimals = parseInt(await getTokenDecimals(tradedTokenAddress));	  
     let ethBalance = parseInt(await getETHBalance(contractAddress))/1e18;
+    console.log(await getTradedTokenBalance(contractAddress),tradedTokenDecimals);	  
     let tradedTokenBalance = parseInt(await getTradedTokenBalance(contractAddress))/(Math.pow(10,tradedTokenDecimals));	  
     let rowHTML = '<tr><td class="etherscan">' + admin + '</td><td class="etherscan">' + contractAddress + "</td><td>"
     + ethVolume.toString() + " ETH" + "</td><td>" 
