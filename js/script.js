@@ -217,7 +217,7 @@ function initSearchClickListener() {
 }                                                                                            
 
 function initTokenTableClickListener() {
-  $('#main > div.left-container > div > div > table > tr').on('click', function(e) {
+  $('#main > div.left-container > div > div > table > tbody > tr').on('click', function(e) {
     let title = e.currentTarget.firstChild.innerText;
     localStorage.setItem("tradedToken",title);	  
     let contractsObject = JSON.parse(localStorage.getItem('tableInformation'));	  	  	  	  
