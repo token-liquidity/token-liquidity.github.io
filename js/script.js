@@ -393,7 +393,7 @@ function loadTable(object) {
     let name = i;
     let tokenAddress = localStorage.getItem(name);	  
     let tokenVolume = object[i];
-    let rowHTML = '<tbody><tr><td class="leftTable" address="' + tokenAddress + '">' + name.toUpperCase() + "</td><td>" + tokenVolume.toFixed(2) + " ETH</td></tr></tbody>";
+    let rowHTML = '<tr><td class="leftTable" address="' + tokenAddress + '">' + name.toUpperCase() + "</td><td>" + tokenVolume.toFixed(2) + " ETH</td></tr>";
     $(query).append(rowHTML);   
   }  
   $('#main > div.left-container > div > div > table').tablesorter();
