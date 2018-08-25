@@ -343,6 +343,16 @@ async function get24HourVolumeToken(contractAddress) {
   return totalVolume;
 } 
 
+function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 async function loadContractInformation(arr) {
   let query = '#main > div.right-container > div > div > table';
   let query2 = '#main > div.left-container > div > div > table';
@@ -420,12 +430,7 @@ async function loadSearch() {
       let ethVolume = ((await get24HourVolumeETH(contractAddress))/Math.pow(10,18));
       tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);  
       let searchObject = {'title':name};
-      for(let i in categoryContent) { 
-	for(let j in categoryContent[i]) { 
-	  if(j === name) {
-	    break;	  
-	  }	   
-	} 
+      if(!containsObject(searchObject,categoryContent)) {
         categoryContent.push(searchObject);	        
       }	       
       typeof contractsObject[name]  === 'object' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
