@@ -422,6 +422,7 @@ async function loadSearch() {
       if(!~categoryContent.indexOf(searchObject)) {
         categoryContent.push(searchObject);
       }
+      console.log(contractsObject[name]);	    
       console.log(typeof contractsObject[name]);	    
       typeof contractsObject[name]  === 'Array' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
     }	    
