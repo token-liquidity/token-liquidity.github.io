@@ -387,18 +387,15 @@ function initLeftTableClickListener() {
   });	  
 }
 
-function loadTable(arr) {
+function loadTable(object) {
   let query = '#main > div.left-container > div > div > table';   
-  for(let i in arr) {
-    let object = arr[i];
-    for(let j in object) {	  
-      let name = j;
-      let tokenAddress = localStorage.getItem(name);	  
-      let tokenVolume = object[j];
-      let rowHTML = '<tr><td class="leftTable" address="' + tokenAddress + '">' + name.toUpperCase() + "</td><td>" + tokenVolume.toFixed(2) + " ETH</td></tr>";
-      $(query).append(rowHTML);   
-    }
-  }	  
+  for(let i in object) {
+    let name = i;
+    let tokenAddress = localStorage.getItem(name);	  
+    let tokenVolume = object[i];
+    let rowHTML = '<tr><td class="leftTable" address="' + tokenAddress + '">' + name.toUpperCase() + "</td><td>" + tokenVolume.toFixed(2) + " ETH</td></tr>";
+    $(query).append(rowHTML);   
+  }  
   $('#main > div.left-container > div > div > table').tablesorter();
   initLeftTableClickListener();	  	
 }  
@@ -410,19 +407,17 @@ async function loadSearch() {
   let internalTxsArray = "";
   let categoryContent = [];
   let contractsObject = {};
-  let marketArray = [];	
+  let tokenObject = {};
   for(let i in internalTxs) {
     let contractAddress = internalTxs[i].contractAddress;
     if(contractAddress.slice(0,2) !== "0x") { continue; }	  
     let ethBalance = parseInt(await getETHBalance(contractAddress))/1e18;
     if(ethBalance > 0) {	  
-      let tokenObject = {};	    
       let tradedTokenAddress = await getTradedToken(contractAddress);
       let name = (await getTokenName(tradedTokenAddress)).toUpperCase();
       localStorage.setItem(name,tradedTokenAddress);	  
       let ethVolume = ((await get24HourVolumeETH(contractAddress))/Math.pow(10,18));
       tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);  
-      marketArray.push(tokenObject);	    
       let searchObject = {'title':name};
       if(!~categoryContent.indexOf(searchObject)) {
         categoryContent.push(searchObject);
@@ -430,7 +425,7 @@ async function loadSearch() {
       typeof contractsObject[name]  === 'object' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
     }	    
   }
-  loadTable(marketArray);
+  loadTable(tokenObject);
   initSearch(categoryContent);
   localStorage.setItem("tableInformation",JSON.stringify(contractsObject));
   initTokenTableClickListener();	
