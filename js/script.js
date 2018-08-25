@@ -428,15 +428,11 @@ async function loadSearch() {
       let name = (await getTokenName(tradedTokenAddress)).toUpperCase();
       localStorage.setItem(name,tradedTokenAddress);	  
       let ethVolume = ((await get24HourVolumeETH(contractAddress))/Math.pow(10,18));
-      tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);  
-      let searchObject = {'title':name};
-      console.log(categoryContent,searchObject,containsObject(searchObject,categoryContent));	    
-      if(!containsObject(searchObject,categoryContent)) {
-        categoryContent.push(searchObject);	        
-      }	       
+      tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);    
       typeof contractsObject[name]  === 'object' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
     }	    
   }
+  for(let i in tokenObject) { categoryContent.push({'title':i}); }	
   loadTable(tokenObject);
   initSearch(categoryContent);
   localStorage.setItem("tableInformation",JSON.stringify(contractsObject));
