@@ -421,10 +421,8 @@ async function loadSearch() {
       let searchObject = {'title':name};
       if(!~categoryContent.indexOf(searchObject)) {
         categoryContent.push(searchObject);
-      }
-      console.log(contractsObject[name]);	    
-      console.log(typeof contractsObject[name]);	    
-      typeof contractsObject[name]  === 'Array' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
+      }	    
+      typeof contractsObject[name]  === 'object' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
     }	    
   }
   loadTable(tokenObject);
