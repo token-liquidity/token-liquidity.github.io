@@ -378,6 +378,7 @@ async function loadContractInformation(arr) {
   let userBalance = parseInt(await getUserTokenBalance(mainTradedToken));	  
   $('#tradedToken').text(name.toUpperCase());
   $('#userTokenBalance').text("/" + (userBalance/Math.pow(10,tokenDecimals)).toFixed(2) + " " + name.toUpperCase());		
+  $(query).tablesorter();	
   initButtonClick();
 }  
 
