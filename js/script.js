@@ -430,6 +430,7 @@ async function loadSearch() {
       let ethVolume = ((await get24HourVolumeETH(contractAddress))/Math.pow(10,18));
       tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);  
       let searchObject = {'title':name};
+      console.log(categoryContent,searchObject,containsObject(searchObject,categoryContent));	    
       if(!containsObject(searchObject,categoryContent)) {
         categoryContent.push(searchObject);	        
       }	       
