@@ -420,9 +420,14 @@ async function loadSearch() {
       let ethVolume = ((await get24HourVolumeETH(contractAddress))/Math.pow(10,18));
       tokenObject[name] ? tokenObject[name] += ethVolume : (tokenObject[name] = 0, tokenObject[name] += ethVolume);  
       let searchObject = {'title':name};
-      if(!~categoryContent.indexOf(searchObject)) {
-        categoryContent.push(searchObject);
-      }	    
+      for(let i in categoryContent) { 
+	for(let j in categoryContent[i]) { 
+	  if(j === name) {
+	    break;	  
+	  }	   
+	} 
+        categoryContent.push(searchObject);	        
+      }	       
       typeof contractsObject[name]  === 'object' ? contractsObject[name].push(contractAddress) : contractsObject[name] = [contractAddress];
     }	    
   }
